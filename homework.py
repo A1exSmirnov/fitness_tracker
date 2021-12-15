@@ -26,7 +26,7 @@ class Training:
 
     LEN_STEP: float = 0.65
     M_IN_KM: int = 1000
-    hour: int = 60
+    HOUR: int = 60
 
     def __init__(self,
                  action: int,
@@ -61,22 +61,22 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    run_cal_1: int = 18
-    run_cal_2: int = 20
+    RUN_CAL_1: int = 18
+    RUN_CAL_2: int = 20
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         mid_speed: float = self.get_mean_speed()
         return (
-            (self.run_cal_1 * mid_speed - self.run_cal_2) * self.weight
-            / self.M_IN_KM * self.duration * self.hour
+            (self.RUN_CAL_1 * mid_speed - self.RUN_CAL_2) * self.weight
+            / self.M_IN_KM * self.duration * self.HOUR
         )
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    walk_cal_1: float = 0.035
-    walk_cal_2: float = 0.029
+    WALK_CAL_1: float = 0.035
+    WALK_CAL_2: float = 0.029
 
     def __init__(self,
                  action: int,
@@ -91,8 +91,8 @@ class SportsWalking(Training):
         """Получить количество затраченных калорий."""
         mid_speed: float = self.get_mean_speed()
         return (
-            (self.walk_cal_1 * self.weight + (mid_speed**2 // self.height)
-             * self.walk_cal_2 * self.weight) * self.duration * self.hour
+            (self.WALK_CAL_1 * self.weight + (mid_speed**2 // self.height)
+             * self.WALK_CAL_2 * self.weight) * self.duration * self.HOUR
         )
 
 
@@ -100,8 +100,8 @@ class Swimming(Training):
     """Тренировка: плавание."""
 
     LEN_STEP: float = 1.38
-    swim_cal_1: float = 1.1
-    swim_cal_2: int = 2
+    SWIM_CAL_1: float = 1.1
+    SWIM_CAL_2: int = 2
 
     def __init__(self,
                  action: int,
@@ -124,7 +124,7 @@ class Swimming(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         mid_speed: float = self.get_mean_speed()
-        return (mid_speed + self.swim_cal_1) * self.swim_cal_2 * self.weight
+        return (mid_speed + self.SWIM_CAL_1) * self.SWIM_CAL_2 * self.weight
 
 
 def read_package(workout_type: str, data: list) -> Training:
@@ -140,7 +140,7 @@ def read_package(workout_type: str, data: list) -> Training:
 
 def main(training: Training) -> None:
     """Главная функция."""
-    info: Type[Training] = training.show_training_info()
+    info: Type[InfoMessage] = training.show_training_info()
     print(info.get_message())
 
 
